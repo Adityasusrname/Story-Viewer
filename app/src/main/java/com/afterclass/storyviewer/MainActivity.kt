@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             storyBarAbove.layoutParams=paramsStoryBarAbove
             storyBarAbove.scaleX=0F
             storyBarAbove.setBackgroundColor(Color.RED)
-            storyBarAbove.id=i                         //Assigning id to each storyBar2
+            storyBarAbove.id=i                         //Assigning id to each storyBarAbove
 
 
             val storyGap = View(this)
