@@ -48,45 +48,37 @@ class MainActivity : AppCompatActivity() {
 
             val storyBarLayout = FrameLayout(this)
             var paramsFrameLayout = storyBarLayout.layoutParams
-            val layoutParamsFrameLayout = ViewGroup.LayoutParams(((displayMatrics.widthPixels/STORY_COUNT)-10),ViewGroup.LayoutParams.MATCH_PARENT)
-            paramsFrameLayout=layoutParamsFrameLayout
+            paramsFrameLayout=ViewGroup.LayoutParams(((displayMatrics.widthPixels/STORY_COUNT)-10),ViewGroup.LayoutParams.MATCH_PARENT)
             storyBarLayout.layoutParams=paramsFrameLayout
-            storyBarLayout.id=i*10
+            storyBarLayout.id=i*10                //Assigning id to each frame layout
 
 
-            val storyBar1=View(this)
-            var paramsStory1 = storyBar1.layoutParams
-            val layoutParamsStory1 = ViewGroup.LayoutParams(((displayMatrics.widthPixels/STORY_COUNT)-10),ViewGroup.LayoutParams.MATCH_PARENT)
-            paramsStory1 = layoutParamsStory1
-            storyBar1.layoutParams=paramsStory1
-            storyBar1.setBackgroundColor(Color.WHITE)
+            val storyBarBelow=View(this)
+            var paramsStoryBarBelow = storyBarBelow.layoutParams
+            paramsStoryBarBelow = ViewGroup.LayoutParams(((displayMatrics.widthPixels/STORY_COUNT)-10),ViewGroup.LayoutParams.MATCH_PARENT)
+            storyBarBelow.layoutParams=paramsStoryBarBelow
+            storyBarBelow.setBackgroundColor(Color.WHITE)
 
-            val storyBar2=View(this)
-            var paramsStory2 = storyBar2.layoutParams
-            val layoutParamsStory2 = ViewGroup.LayoutParams(((displayMatrics.widthPixels/STORY_COUNT)-10),ViewGroup.LayoutParams.MATCH_PARENT)
-            paramsStory2= layoutParamsStory2
-            storyBar2.layoutParams=paramsStory2
-            storyBar2.scaleX=0F
-            storyBar2.setBackgroundColor(Color.RED)
-            storyBar2.id=i
+            val storyBarAbove=View(this)
+            var paramsStoryBarAbove = storyBarAbove.layoutParams
+            paramsStoryBarAbove= ViewGroup.LayoutParams(((displayMatrics.widthPixels/STORY_COUNT)-10),ViewGroup.LayoutParams.MATCH_PARENT)
+            storyBarAbove.layoutParams=paramsStoryBarAbove
+            storyBarAbove.scaleX=0F
+            storyBarAbove.setBackgroundColor(Color.RED)
+            storyBarAbove.id=i                         //Assigning id to each storyBar2
 
 
             val storyGap = View(this)
             var paramsGap = storyGap.layoutParams
-            val layoutParamsGap = ViewGroup.LayoutParams(10,ViewGroup.LayoutParams.MATCH_PARENT)
-            storyGap.layoutParams=layoutParamsGap
+            storyGap.layoutParams= ViewGroup.LayoutParams(10,ViewGroup.LayoutParams.MATCH_PARENT)
             storyGap.setBackgroundColor(Color.BLACK)
 
-            storyBarLayout.addView(storyBar1)
-            storyBarLayout.addView(storyBar2)
+            storyBarLayout.addView(storyBarBelow)
+            storyBarLayout.addView(storyBarAbove)
 
 
             layoutProgressBars.addView(storyBarLayout)
             layoutProgressBars.addView(storyGap)
-
-         /*   storyBar2.pivotX=0F
-            storyBar2.pivotY=0F
-            storyBar2.animate().scaleX(1F).setStartDelay(((i-1)*1600).toLong()).setDuration(2000).start()*/
 
             i++
         }
@@ -104,32 +96,32 @@ class MainActivity : AppCompatActivity() {
             val frameLayout=binding.layoutProgressBars.findViewById<FrameLayout>((position+1)*10)
             val view=frameLayout.findViewById<View>(position+1)
 
-            var view1:View?=null
-            var view2:View?=null
+            var viewPrevious:View?=null
+            var viewNext:View?=null
 
-            if((position+2)<=5){
+            if((position+2)<=5){  //Trying to access the view next to the current view
 
                 val frameLayout2=binding.layoutProgressBars.findViewById<FrameLayout>((position+2)*10)
-                view2=frameLayout2.findViewById<View>(position+2)
+                viewNext=frameLayout2.findViewById<View>(position+2)
             }
-            if(position>=1)
+            if(position>=1) //Trying to access the view previous to the current view
             {
 
                 val frameLayout1=binding.layoutProgressBars.findViewById<FrameLayout>((position)*10)
-                view1=frameLayout1.findViewById<View>(position)
+                viewPrevious=frameLayout1.findViewById<View>(position)
             }
 
             view.pivotX=0F
             view.pivotY=0F
             view.scaleX=0F
 
-            view2?.let {
+            viewNext?.let {
                 it.animate().cancel()
                 it.scaleX=0F
 
             }
 
-            view1?.let {
+            viewPrevious?.let {
                 it.animate().cancel()
                 it.scaleX=1F
                 Log.d("TAG",it.id.toString())
